@@ -1,10 +1,12 @@
 <?php
 
 namespace Core ;
+
 class Core
 {
+
     public function run()
     {
-        echo __CLASS__ . " [ OK ]" . PHP_EOL ;
+        include $_SERVER['DOCUMENT_ROOT']."/MVC_PiePHP/src/routes.php";
     }
 }

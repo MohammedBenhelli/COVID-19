@@ -1,6 +1,37 @@
-RewriteEngine On
-RewriteBase /MVCPiePHP/
-RewriteCond %{REQUEST_FILENAME} !-f [OR]
-RewriteCond %{REQUEST_URI} !^/MVCPiePHP/index.php$
-#RewriteCond %{REQUEST_URI} !^/MVCPiePHP/( webroot/.+| index.php | robots.txt)$
+#RewriteEngine On
+#RewriteBase /MVCPiePHP/
+#RewriteCond %{REQUEST_FILENAME} !-f [OR]
+#RewriteCond %{REQUEST_URI} !^/MVCPiePHP/index.php$ [OR]
+#RewriteCond %{REQUEST_URI} !^/MVCPiePHP/robots.txt$ [OR]
+#RewriteCond %{REQUEST_URI} !^(webroot/.+|index.php|robots.txt)$
+#RewriteRule ^ index.php [QSA,L]
+#RewriteRule ^(.*)$ /index.php [L]
+
+#DirectorySlash Off
+#Options -ExecCGI -FollowSymLinks -Includes -IncludesNOEXEC -Indexes -MultiViews
+#RewriteEngine On
+#RewriteBase /MVCPiePHP/
+#RewriteCond %{REQUEST_FILENAME} !-f [OR]
+#RewriteCond %{REQUEST_URI} !^/MVCPiePHP/(webroot/.+|index\.php|robots\.txt)$
 #RewriteRule ^(.*)$ index.php [QSA,L]
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
