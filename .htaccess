@@ -1,8 +1,8 @@
 #RewriteEngine On
 #RewriteBase /MVCPiePHP/
 #RewriteCond %{REQUEST_FILENAME} !-f [OR]
-#RewriteCond %{REQUEST_URI} !^/MVCPiePHP/index.php$ [OR]
-#RewriteCond %{REQUEST_URI} !^/MVCPiePHP/robots.txt$ [OR]
+##RewriteCond %{REQUEST_URI} !^/MVCPiePHP/index.php$ [OR]
+##RewriteCond %{REQUEST_URI} !^/MVCPiePHP/robots.txt$ [OR]
 #RewriteCond %{REQUEST_URI} !^(webroot/.+|index.php|robots.txt)$
 #RewriteRule ^ index.php [QSA,L]
 #RewriteRule ^(.*)$ /index.php [L]
@@ -35,3 +35,9 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
+
+#RewriteEngine On
+#RewriteBase /MVCPiePHP/
+#RewriteCond %{REQUEST_FILENAME} !-f [OR]
+#RewriteCond %{REQUEST_URI} !^/MVCPiePHP/(webroot/.+|index.php|robots.txt)$
+#RewriteRule ^ index.php [QSA,L]

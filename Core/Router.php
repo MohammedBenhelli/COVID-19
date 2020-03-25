@@ -9,6 +9,7 @@ class Router
 
     public static function connect(string $url, array $route):bool {
         self::$routes[$url] = $route;
+        print_r(self::$routes);
         return true;
     }
 
