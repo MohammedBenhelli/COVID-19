@@ -37,7 +37,7 @@
 </IfModule>
 
 #RewriteEngine On
-#RewriteBase /MVCPiePHP/
+#RewriteBase /MVCPiePHP
 #RewriteCond %{REQUEST_FILENAME} !-f [OR]
 #RewriteCond %{REQUEST_URI} !^/MVCPiePHP/(webroot/.+|index.php|robots.txt)$
 #RewriteRule ^ index.php [QSA,L]
