@@ -3,6 +3,7 @@
 namespace Controller;
 
 use Core;
+use Model\UserModel;
 
 class UserController extends Core\Controller
 {
@@ -14,11 +15,17 @@ class UserController extends Core\Controller
     public function addAction()
     {
         echo "ouai";
-        $this::render("User/login");
+        $this::render("register");
     }
 
     public function indexAction()
     {
         echo "<h2 style='color: #9b0400'>404</h2>";
+    }
+
+    public function registerAction()
+    {
+        $model = new UserModel($_POST["email"], $_POST["password"]);
+        if($model->save()) echo "<h3>Account successfully created!</h3>";
     }
 }

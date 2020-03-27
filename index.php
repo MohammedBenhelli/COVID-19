@@ -1,3 +1,15 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/MVC_PiePHP/webroot/css/tailwind.min.css">
+    <script src="/MVC_PiePHP/webroot/js/jquery.min.js"></script>
+    <title>Index</title>
+</head>
+<body>
 <?php
 define("BASE_URI", str_replace(substr('\ ', 0, 1), "/", substr(__DIR__, strlen($_SERVER ['DOCUMENT_ROOT']))));
 require_once('Core/autoload.php');
@@ -24,16 +36,6 @@ $controller->$action();
 //    $controller->indexAction();
 //}
 ?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Index</title>
-</head>
-<body>
 <pre>
     <?php
     var_dump($_POST);
