@@ -16,7 +16,8 @@ class Router
 
     public static function get($url): array
     {
-        return self::$routes[$url];
+        if(isset(self::$routes[$url])) return self::$routes[$url];
+        else return ["null"];
 //        return ["controller" => explode("/", $url)[2], "action" => explode("/", $url)[3]];
     }
 }

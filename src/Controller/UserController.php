@@ -25,7 +25,7 @@ class UserController extends Core\Controller
 
     public function registerAction()
     {
-        $model = new UserModel($_POST["email"], $_POST["password"]);
-        if($model->save()) echo "<h3>Account successfully created!</h3>";
+        $model = new UserModel();
+        if($model->create()) echo "<h3>Account successfully created!</h3>";
     }
 }

@@ -2,27 +2,61 @@
 
 namespace Model;
 
+use Core\Request;
 use PDO;
 
 class UserModel
 {
-    private $connect;
+    private \PDO $connect;
     private $query;
+    private $request;
     private string $email;
     private string $password;
 
-    public function __construct(string $mail, string $password)
+    public function __construct()
     {
+        $this->request = new Request();
+        $this->request->secure();
         $this->connect = new PDO('mysql:host=localhost:3308;dbname=mvcpiephp', "root", "");
         $this->query = "INSERT INTO users(id, email, password) VALUES (NULL, ?, ?)";
-        $this->email = $mail;
-        $this->password = $password;
+        $this->email = $_POST["email"];
+        $this->password = $_POST["password"];
     }
 
-    public function save():bool
+    public function create():string
     {
         $register = $this->connect->prepare($this->query);
-        return $register->execute([$this->email, $this->password]);
+        $register->execute([$this->email, $this->password]);
+        $getId = $this->connect->prepare("SELECT id FROM users WHERE email=? LIMIT 1");
+        $getId->execute([$this->email]);
+        return $getId->fetchAll()[0][0];
+    }
+
+    public function read($id):array
+    {
+        $read = $this->connect->prepare("SELECT * FROM users WHERE id=?");
+        $read->execute([$id]);
+        return $read->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    public function update($id):bool
+    {
+        $this->request->secure();
+        $update = $this->connect->prepare("UPDATE users SET email=?, password=? WHERE id=?");
+        return $update->execute([$_POST["email"], $_POST["password"], $id]);
+    }
+
+    public function delete($id):bool
+    {
+        $delete = $this->connect->prepare("DELETE FROM users WHERE id=?");
+        return $delete->execute([$id]);
+    }
+
+    public function read_all():array
+    {
+        $readAll = $this->connect->prepare("SELECT * FROM users");
+        $readAll->execute();
+        return $readAll->fetchAll();
     }
 
     public function run()
