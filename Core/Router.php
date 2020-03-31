@@ -14,7 +14,7 @@ class Router
         return true;
     }
 
-    public static function get($url): array
+    public static function get(string $url): array
     {
         if(isset(self::$routes[$url])) return self::$routes[$url];
         else return ["null"];

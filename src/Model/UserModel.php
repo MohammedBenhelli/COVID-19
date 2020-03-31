@@ -2,6 +2,7 @@
 
 namespace Model;
 
+use Core\ORM;
 use Core\Request;
 use PDO;
 
@@ -12,9 +13,11 @@ class UserModel
     private $request;
     private string $email;
     private string $password;
+    private $ORM;
 
     public function __construct()
     {
+        $this->ORM = new ORM();
         $this->request = new Request();
         $this->request->secure();
         $this->connect = new PDO('mysql:host=localhost:3308;dbname=mvcpiephp', "root", "");
@@ -25,11 +28,12 @@ class UserModel
 
     public function create():string
     {
-        $register = $this->connect->prepare($this->query);
-        $register->execute([$this->email, $this->password]);
-        $getId = $this->connect->prepare("SELECT id FROM users WHERE email=? LIMIT 1");
-        $getId->execute([$this->email]);
-        return $getId->fetchAll()[0][0];
+//        $register = $this->connect->prepare($this->query);
+//        $register->execute([$this->email, $this->password]);
+//        $getId = $this->connect->prepare("SELECT id FROM users WHERE email=? LIMIT 1");
+//        $getId->execute([$this->email]);
+//        return $getId->fetchAll()[0][0];
+        return $this->ORM->create("users", ["email" => $this->email, "password" => $this->password]);
     }
 
     public function read($id):array
