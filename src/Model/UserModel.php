@@ -2,28 +2,30 @@
 
 namespace Model;
 
+use Core\Entity;
 use Core\ORM;
 use Core\Request;
 use PDO;
 
-class UserModel
+class UserModel extends Entity
 {
     private \PDO $connect;
-    private $query;
-    private $request;
-    private string $email;
-    private string $password;
-    private $ORM;
+    private string $query;
+    private Request $request;
+    public string $email;
+    public string $password;
+    private ORM $ORM;
 
-    public function __construct()
+    public function __construct(array $params)
     {
         $this->ORM = new ORM();
         $this->request = new Request();
-        $this->request->secure();
+        $this->request->secure($params);
+        parent::__construct($params);
         $this->connect = new PDO('mysql:host=localhost:3308;dbname=mvcpiephp', "root", "");
         $this->query = "INSERT INTO users(id, email, password) VALUES (NULL, ?, ?)";
-        $this->email = $_POST["email"];
-        $this->password = $_POST["password"];
+//        $this->email = $params["email"];
+//        $this->password = $params["password"];
     }
 
     public function create():string
