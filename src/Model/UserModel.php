@@ -14,14 +14,14 @@ class UserModel extends Entity
     private Request $request;
     public string $email;
     public string $password;
-    private ORM $ORM;
+    protected ORM $ORM;
 
     public function __construct(array $params)
     {
         $this->ORM = new ORM();
         $this->request = new Request();
         $this->request->secure($params);
-        parent::__construct($params);
+        parent::__construct($params, $this->ORM);
         $this->connect = new PDO('mysql:host=localhost:3308;dbname=mvcpiephp', "root", "");
         $this->query = "INSERT INTO users(id, email, password) VALUES (NULL, ?, ?)";
 //        $this->email = $params["email"];
