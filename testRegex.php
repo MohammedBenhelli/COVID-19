@@ -2,16 +2,21 @@
 
 $test = file_get_contents("test");
 
-$regexValue = "/{{(.*?)}}/";
-$replaceValue = "<?= htmlentities($0) ?>";
-$regexCondition = "/@if(?:\ \()(?:.*)(?:\))/";
-$replaceCondition = "<?php if $0: ?>";
-$regexCondition1 = "/@elseif(?:\ \()(?:.*)(?:\))/";
-$replaceCondition1 = "<?php elseif $0: ?>";
-$regexCondition2 = "/@else(?:\ \()(?:.*)(?:\))/";
-$replaceCondition2 = "<?php else $0: ?>";
+$regex = [
+    "/{{(.*?)}}/" => "<?= htmlentities($1) ?>",
+    "/@if((?:\ \()(?:.*)(?:\)))/" => "<?php if$1: ?>",
+    "/@elseif((?:\ \()(?:.*)(?:\)))/" => "<?php elseif$1: ?>",
+    "/@else/" => "<?php else: ?>",
+    "/@endif/" => "<?php endif; ?>",
+    "/@foreach((?:\ \()(?:.*)(?:\)))/" => "<?php foreach$1: ?>",
+    "/@endforeach/" => "<?php endforeach; ?>",
+    "/@isset((?:\ \()(?:.*)(?:\)))/" => "<?php if (isset$1): ?>",
+    "/@endisset/" => "<?php endif; ?>",
+    "/@empty((?:\ \()(?:.*)(?:\)))/" => "<?php if (empty$1): ?>",
+    "/@endempty/" => "<?php endif; ?>"
+];
 
-$test = preg_replace($regexValue, $replaceValue, $test);
-$test = preg_filter($regexCondition, $replaceCondition, $test);
-$test = preg_filter($regexCondition1, $replaceCondition1, $test);
-echo preg_filter($regexCondition2, $replaceCondition2, $test);
+foreach ($regex as $pattern => $replace)
+    $test = preg_replace($pattern, $replace, $test);
+
+echo $test;
