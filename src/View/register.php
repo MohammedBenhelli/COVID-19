@@ -7,9 +7,9 @@
             <label for="password"><b>Password</b>
                 <input pattern="{6,}$" type="password" placeholder="Enter Password" name="password" required>
             </label>
-            <label for="passwordConf"><b>Password Confirmation</b>
-                <input pattern="{6,}$" type="password" placeholder="Retype Password" name="passwordConf" required>
-            </label>
+<!--            <label for="passwordConf"><b>Password Confirmation</b>-->
+<!--                <input pattern="{6,}$" type="password" placeholder="Retype Password" name="passwordConf" required>-->
+<!--            </label>-->
             <button class="bg-orange-500 hover:bg-orange-400  text-white font-bold py-2 px-4 rounded-full" type="submit">register</button>
         </div>
     </div>
