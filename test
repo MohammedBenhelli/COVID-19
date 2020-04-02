@@ -1,0 +1,11 @@
+<?php
+
+
+{{ $test }}
+@if (count($record) === 1)
+    testets
+@elseif (count($record) === 1)
+    testets
+@else (count($record) === 1)
+    testets
+@endif

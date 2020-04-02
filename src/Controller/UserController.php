@@ -14,7 +14,6 @@ class UserController extends Core\Controller
 
     public function addAction()
     {
-        echo "ouai";
         $this::render("register");
     }
 
@@ -30,7 +29,7 @@ class UserController extends Core\Controller
         if($model->create()) echo "<h3>Account successfully created!</h3>";
     }
 
-    public function show(string $id)
+    public function showAction(string $id)
     {
         
     }
