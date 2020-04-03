@@ -1,3 +1,5 @@
+<h3 class='text-red-400 font-bold'>{{ $error }}</h3>
+<h3 class='text-green-400 font-bold'>{{ $message }}</h3>
 <form action="/MVC_PiePHP/loginRequest" method="post">
     <div class="container mx-auto">
         <div class="grid grid-cols-6">

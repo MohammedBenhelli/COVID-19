@@ -13,14 +13,14 @@ class UserController extends Core\Controller
         echo __CLASS__ . " [ OK ]" . PHP_EOL;
     }
 
-    public function addAction()
+    public function addAction(string $message = "", string $error = "")
     {
-        $this->render("register");
+        $this->render("register", ["message" => $message, "error" => $error], true);
     }
 
-    public function loginAction()
+    public function loginAction(string $message = "", string $error = "")
     {
-        $this->render("login");
+        $this->render("login", ["message" => $message, "error" => $error], true);
     }
 
     public function indexAction()
@@ -31,35 +31,22 @@ class UserController extends Core\Controller
     public function loginVerifAction()
     {
         $model = new UserModel(["email" => $_POST["email"], "password" => $_POST["password"]]);
-        if ($model->connect()) {
-            echo "<h3 class='text-green-400 font-bold'>Successfully connected!</h3>";
-            $this->homeAction();
-        }
-        else {
-            echo "<h3 class='text-red-400 font-bold'>Wrong password or mail!</h3>";
-            $this->loginAction();
-        }
+        if ($model->connect()) $this->homeAction("Successfully connected!");
+        else $this->loginAction("", "Wrong password or mail!");
     }
 
     public function registerAction()
     {
         $model = new UserModel(["email" => $_POST["email"], "password" => $_POST["password"], "passwordVerif" => $_POST["passwordVerif"]]);
-//        var_dump($model->email);
-        if($model->create()) {
-            echo "<h3 class='text-green-400 font-bold'>Account successfully created!</h3>";
-            $this->loginAction();
-        }
-        else {
-            echo "<h3 class='text-red-400 font-bold'>Error in your information!</h3>";
-            $this->addAction();
-        }
+        if($model->create()) $this->loginAction("Account successfully created!");
+        else $this->addAction("", "Error in your information!");
     }
 
-    public function homeAction()
+    public function homeAction(string $message = "", string $error = "")
     {
         $model = new GenreModel();
         $this->render("header");
-        $this->render("home", ["genres" => $model->getGenre(), "distributeurs" => $model->getDistributeur()], true);
+        $this->render("home", ["genres" => $model->getGenre(), "distributeurs" => $model->getDistributeur(), "message" => $message, "error" => $error], true);
     }
 
     public function showAction(string $id)

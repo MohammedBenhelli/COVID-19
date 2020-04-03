@@ -1,3 +1,5 @@
+<h3 class='text-red-400 font-bold'>{{ $error }}</h3>
+<h3 class='text-green-400 font-bold'>{{ $message }}</h3>
 <div class="">
     <div class="">
         <div class="">
