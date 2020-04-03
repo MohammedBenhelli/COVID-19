@@ -1,4 +1,4 @@
-<form action="/MVC_PiePHP/registerRequest" method="post">
+<form action="/MVC_PiePHP/loginRequest" method="post">
     <div class="container mx-auto">
         <div class="grid grid-cols-6">
             <label for="email"><b>Email</b>
@@ -7,10 +7,7 @@
             <label for="password"><b>Password</b>
                 <input pattern="{6,}$" type="password" placeholder="Enter Password" name="password" required>
             </label>
-            <label for="passwordConf"><b>Password Confirmation</b>
-                <input pattern="{6,}$" type="password" placeholder="Retype Password" name="passwordVerif" required>
-            </label>
-            <button class="bg-orange-500 hover:bg-orange-400  text-white font-bold py-2 px-4 rounded-full" type="submit">register</button>
+            <button class="bg-orange-500 hover:bg-orange-400  text-white font-bold py-2 px-4 rounded-full" type="submit">login</button>
         </div>
     </div>
 </form>

@@ -13,8 +13,8 @@ class Entity
                 $this->$key = $value;
         else {
             $tab = $ORM->read("users", $params["id"]);
-            var_dump($tab, get_class_methods($ORM));
-            var_dump($params["id"]);
+//            var_dump($tab, get_class_methods($ORM));
+//            var_dump($params["id"]);
             foreach ($tab[0] as $key => $value)
                 $this->$key = $value;
         }

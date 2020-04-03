@@ -1,17 +1,17 @@
-{{ $test[0] }}
-@if (count($record) === 1)
+{{ $string }}
+@if (count($array) === 1)
     un
-@elseif (count($record) > 1)
-    superieur
+@elseif (count($array) > 1)
+   <p>array superieur a 1</p>
 @else
     ptn genial ce test
 @endif
-@foreach ($test as $user)
+@foreach ($array as $user)
     <p>Oui le test {{ $user }}</p>
 @endforeach
-@isset ($test)
-    $test est set
+@isset ($array)
+    $array est set
 @endisset
-@empty ($test)
-    $test est empty
+@empty ($array)
+    $array est empty
 @endempty

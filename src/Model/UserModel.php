@@ -12,8 +12,9 @@ class UserModel extends Entity
     private \PDO $connect;
     private string $query;
     private Request $request;
-    public string $email;
-    public string $password;
+//    public string $email;
+//    public string $password;
+//    public string $passwordVerif;
     protected ORM $ORM;
 
     public function __construct(array $params)
@@ -24,18 +25,24 @@ class UserModel extends Entity
         parent::__construct($params, $this->ORM);
         $this->connect = new PDO('mysql:host=localhost:3308;dbname=mvcpiephp', "root", "");
         $this->query = "INSERT INTO users(id, email, password) VALUES (NULL, ?, ?)";
+        if(isset($this->password)) $this->password = hash("SHA512", $this->password);
+        if(isset($this->passwordVerif)) $this->passwordVerif = hash("SHA512", $this->passwordVerif);
 //        $this->email = $params["email"];
 //        $this->password = $params["password"];
     }
 
-    public function create():string
+    public function create():bool
     {
 //        $register = $this->connect->prepare($this->query);
 //        $register->execute([$this->email, $this->password]);
 //        $getId = $this->connect->prepare("SELECT id FROM users WHERE email=? LIMIT 1");
 //        $getId->execute([$this->email]);
 //        return $getId->fetchAll()[0][0];
-        return $this->ORM->create("users", ["email" => $this->email, "password" => $this->password]);
+        if($this->password === $this->passwordVerif) {
+            $this->ORM->create("users", ["email" => $this->email, "password" => $this->password]);
+            return true;
+        }
+        else return false;
     }
 
     public function read($id):array
@@ -63,6 +70,11 @@ class UserModel extends Entity
         $readAll = $this->connect->prepare("SELECT * FROM users");
         $readAll->execute();
         return $readAll->fetchAll();
+    }
+
+    public function connect():bool
+    {
+        return $this->password === $this->ORM->readMail("users", $this->email)[0]->password;
     }
 
     public function run()

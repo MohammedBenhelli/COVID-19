@@ -10,6 +10,6 @@ class TestController extends Core\Controller
 {
     public function templateAction()
     {
-        $this->render("testTemplate", ["record" => ["oui"], "test" => ["patrice", "pat", "patoche"]], true);
+        $this->render("testTemplate", ["string" => "ceci est une string", "array" => ["patrice", "pat", "patoche"]], true);
     }
 }
