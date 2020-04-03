@@ -17,25 +17,27 @@ require_once('Core/autoload.php');
 $app = new Core\Core();
 $app->run();
 
-$router = \Core\Router::get(substr($_SERVER["REDIRECT_URL"], 11));
-if ($router !== ["null"]) {
-    $classname = substr("Controller\ ", 0, 11) . ucfirst($router["controller"]) . "Controller";
-    $action = $router["action"] . "Action";
-    $controller = new $classname;
-    $controller->$action();
-} else {
-    $url = explode("/", $_SERVER["REQUEST_URI"]);
-    if (isset($url[2])) $className = substr("Controller\ ", 0, 11) . ucfirst($url[2]) . "Controller";
-    if (isset($url[3])) $method = $url[3] . "Action";
-    if (class_exists($className, false)) {
-        $controller = new $className;
-        if (method_exists($controller, $method)) $controller->$method();
-        else $controller->indexAction();
-    } else {
-        $controller = new Controller\AppController();
-        $controller->indexAction();
-    }
-}
+\Core\Router::init();
+
+//$router = \Core\Router::get(substr($_SERVER["REDIRECT_URL"], 11));
+//if ($router !== ["null"]) {
+//    $classname = substr("Controller\ ", 0, 11) . ucfirst($router["controller"]) . "Controller";
+//    $action = $router["action"] . "Action";
+//    $controller = new $classname;
+//    $controller->$action();
+//} else {
+//    $url = explode("/", $_SERVER["REQUEST_URI"]);
+//    if (isset($url[2])) $className = substr("Controller\ ", 0, 11) . ucfirst($url[2]) . "Controller";
+//    if (isset($url[3])) $method = $url[3] . "Action";
+//    if (class_exists($className, false)) {
+//        $controller = new $className;
+//        if (method_exists($controller, $method)) $controller->$method();
+//        else $controller->indexAction();
+//    } else {
+//        $controller = new Controller\AppController();
+//        $controller->indexAction();
+//    }
+//}
 ?>
 <pre>
     <?php

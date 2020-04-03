@@ -51,6 +51,6 @@ class UserController extends Core\Controller
 
     public function showAction(string $id)
     {
-        
+        echo $id;
     }
 }
