@@ -38,10 +38,7 @@ class UserModel extends Entity
 //        $getId = $this->connect->prepare("SELECT id FROM users WHERE email=? LIMIT 1");
 //        $getId->execute([$this->email]);
 //        return $getId->fetchAll()[0][0];
-        if($this->password === $this->passwordVerif) {
-            $this->ORM->create("users", ["email" => $this->email, "password" => $this->password]);
-            return true;
-        }
+        if($this->password === $this->passwordVerif && $this->ORM->create("users", ["email" => $this->email, "password" => $this->password]) !== "error") return true;
         else return false;
     }
 
