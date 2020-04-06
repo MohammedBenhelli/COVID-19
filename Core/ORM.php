@@ -84,6 +84,15 @@ class ORM
 
     public function find(string $table, array $params): array
     {
-
+        $request = "SELECT * FROM $table WHERE ";
+        $tab = [];
+        foreach ($params as $key => $value) {
+            $request .= $key . " LIKE ?,";
+            array_push($tab, $value);
+        }
+        $request = rtrim($request, ",");
+        $find = $this->connectCinema->prepare($request);
+        if ($find->execute($tab)) return $find->fetchAll(PDO::FETCH_CLASS);
+        else return ["null"];
     }
 }

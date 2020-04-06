@@ -4,7 +4,10 @@
     <div class="">
         <div class="">
             <div class="">
-                <input id="film" class="border border-red-700 rounded-full text-red-600 h-10 pl-5 pr-10" type="text" placeholder="Rechercher...">
+                <form action="/MVC_PiePHP/cinema/filmSearch" method="post">
+                    <input id="film" name="film" class="border border-red-700 rounded-full text-red-600 h-10 pl-5 pr-10" type="text" placeholder="Rechercher...">
+                    <button class="bg-orange-500 hover:bg-orange-400  text-white font-bold rounded-full" type="submit">Go</button>
+                </form>
                 <select id="genre" class="border border-red-700 rounded-full text-red-600 h-10 pl-5 pr-10 bg-white hover:border-red-800 focus:outline-none appearance-none">
                     <option value="">Genres</option>
                     @foreach ($genres as $value)

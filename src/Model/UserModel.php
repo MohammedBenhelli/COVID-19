@@ -71,7 +71,9 @@ class UserModel extends Entity
 
     public function connect():bool
     {
-        return $this->password === $this->ORM->readMail("users", $this->email)[0]->password;
+        if ($this->ORM->readMail("users", $this->email) !== ["null"] && isset($this->ORM->readMail("users", $this->email)[0]->password))
+            return $this->password === $this->ORM->readMail("users", $this->email)[0]->password;
+        else return false;
     }
 
     public function run()

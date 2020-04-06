@@ -43,7 +43,7 @@ class Router
         if (isset($url[3])) $method = $url[3] . "Action";
         if (isset($className) && class_exists($className, false)) {
             $controller = new $className;
-            if (method_exists($controller, $method)) $controller->$method();
+            if (isset($method) && method_exists($controller, $method)) $controller->$method();
             else $controller->indexAction();
             return true;
         } else {
@@ -74,8 +74,6 @@ class Router
             $controller->$action(...$arguments);
             return true;
         }
-        else print_r($url);
-        echo $path;
-            return false;
+        else return false;
     }
 }
