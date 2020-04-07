@@ -10,3 +10,6 @@ Core\Router::connect('/user/{id}', ['controller' => 'user', 'action' => 'show'])
 Core\Router::connect('/testTemplate', ['controller' => 'test', 'action' => 'template']);
 Core\Router::connect('/cinema/filmSearch', ['controller' => 'film', 'action' => 'show']);
 Core\Router::connect('/cinema/home', ['controller' => 'user', 'action' => 'home']);
+Core\Router::connect('/cinema/delete', ['controller' => 'user', 'action' => 'delete']);
+Core\Router::connect('/cinema/modify', ['controller' => 'user', 'action' => 'modify']);
+Core\Router::connect('/cinema/modifyRequest', ['controller' => 'user', 'action' => 'modifyRequest']);

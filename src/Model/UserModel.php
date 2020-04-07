@@ -15,7 +15,7 @@ class UserModel extends Entity
 //    public string $email;
 //    public string $password;
 //    public string $passwordVerif;
-    protected ORM $ORM;
+    public ORM $ORM;
 
     public function __construct(array $params)
     {
@@ -72,7 +72,11 @@ class UserModel extends Entity
     public function connect():bool
     {
         if ($this->ORM->readMail("users", $this->email) !== ["null"] && isset($this->ORM->readMail("users", $this->email)[0]->password))
-            return $this->password === $this->ORM->readMail("users", $this->email)[0]->password;
+            if($this->password === $this->ORM->readMail("users", $this->email)[0]->password){
+                $_SESSION["id"] = $this->ORM->readMail("users", $this->email)[0]->id;
+                return true;
+            }
+            else return false;
         else return false;
     }
 

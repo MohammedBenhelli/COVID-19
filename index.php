@@ -12,6 +12,7 @@
 </head>
 <body>
 <?php
+session_start();
 define("BASE_URI", str_replace(substr('\ ', 0, 1), "/", substr(__DIR__, strlen($_SERVER ['DOCUMENT_ROOT']))));
 require_once('Core/autoload.php');
 $app = new Core\Core();
@@ -43,6 +44,7 @@ $app->run();
     <?php
     var_dump($_POST);
     var_dump($_GET);
+    var_dump($_SESSION);
     var_dump($_SERVER);
     ?>
 </pre>

@@ -49,6 +49,32 @@ class UserController extends Core\Controller
         $this->render("home", ["genres" => $model->getGenre(), "distributeurs" => $model->getDistributeur(), "message" => $message, "error" => $error], true);
     }
 
+    public function deleteAction(string $message = "", string $error = "")
+    {
+        $model = new UserModel(["id" => $_SESSION["id"]]);
+        $model->ORM->delete("users", $model->id);
+        session_destroy();
+        $this->render("register", ["message" => $message, "error" => $error], true);
+    }
+
+    public function modifyAction()
+    {
+        $model = new UserModel(["id" => $_SESSION["id"]]);
+        $this->render("header");
+        $this->render("modify", ["mail" => $model->email], true);
+    }
+
+    public function modifyRequestAction()
+    {
+        $model = new UserModel(["id" => $_SESSION["id"]]);
+        if($_POST["password"] === $_POST["passwordConf"] && $_POST["password"] !== "")
+            $model->ORM->update("users", $_SESSION["id"], ["password" => hash("SHA512", $_POST["password"])]);
+        if($_POST["mail"] !== "")
+            $model->ORM->update("users", $_SESSION["id"], ["email" => $_POST["mail"]]);
+        session_destroy();
+        $this->loginAction();
+    }
+
     public function showAction(string $id)
     {
         echo $id;
