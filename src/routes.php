@@ -13,3 +13,4 @@ Core\Router::connect('/cinema/home', ['controller' => 'user', 'action' => 'home'
 Core\Router::connect('/cinema/delete', ['controller' => 'user', 'action' => 'delete']);
 Core\Router::connect('/cinema/modify', ['controller' => 'user', 'action' => 'modify']);
 Core\Router::connect('/cinema/modifyRequest', ['controller' => 'user', 'action' => 'modifyRequest']);
+Core\Router::connect('/cinema/history', ['controller' => 'history', 'action' => 'show']);

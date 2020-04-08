@@ -82,7 +82,7 @@ class ORM
         else return ["null"];
     }
 
-    public function find(string $table, array $params): array
+    public function find(string $table, array $params, bool $connect = false): array
     {
         $request = "SELECT * FROM $table WHERE ";
         $tab = [];
@@ -91,7 +91,8 @@ class ORM
             array_push($tab, $value);
         }
         $request = rtrim($request, ",");
-        $find = $this->connectCinema->prepare($request);
+        if(!$connect) $find = $this->connectCinema->prepare($request);
+        else $find = $this->connect->prepare($request);
         if ($find->execute($tab)) return $find->fetchAll(PDO::FETCH_CLASS);
         else return ["null"];
     }

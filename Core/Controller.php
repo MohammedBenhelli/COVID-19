@@ -23,12 +23,12 @@ class Controller
     protected function render($view, $scope = [], bool $templateEngine = false)
     {
         extract($scope);
-        $f = $_SERVER["DOCUMENT_ROOT"] . "/MVC_PiePHP/src/View/" . $view . ".php";
+        $f = $_SERVER["DOCUMENT_ROOT"] . "/MVC_PiePHP/src/View/" . $view . ".blade.php";
 
         if (file_exists($f)) {
             ob_start();
             if (!$templateEngine) {
-                include $_SERVER["DOCUMENT_ROOT"] . "/MVC_PiePHP/src/View/" . $view . ".php";
+                include $_SERVER["DOCUMENT_ROOT"] . "/MVC_PiePHP/src/View/" . $view . ".blade.php";
                 $view = ob_get_clean();
                 ob_start();
                 include $_SERVER["DOCUMENT_ROOT"] . "/MVC_PiePHP/src/View/index.php";
