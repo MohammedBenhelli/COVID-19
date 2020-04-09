@@ -11,6 +11,8 @@
             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">Year: {{ $film->annee_prod }}</span>
             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">Genre</span>
         </div>
-        <button class="bg-orange-600 hover:bg-orange-400 text-white">Add history</button>
+        <a href="/MVC_PiePHP/cinema/addHistory/{{ $film->id_film }}">
+            <button class="bg-orange-600 hover:bg-orange-400 text-white">Add history</button>
+        </a>
     </div>
 @endforeach

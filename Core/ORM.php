@@ -16,7 +16,7 @@ class ORM
         $this->connectCinema = new PDO('mysql:host=localhost:3308;dbname=cinema', "root", "");
     }
 
-    public function create(string $table, array $fields): string
+    public function create(string $table, array $fields, bool $db = false): string
     {
         $request = "INSERT INTO $table(";
         $requestEnd = " VALUES (";
@@ -28,7 +28,9 @@ class ORM
         }
         $request = rtrim($request, ",") . ") ";
         $requestEnd = rtrim($requestEnd, ",") . ")";
-        $create = $this->connect->prepare($request . $requestEnd);
+        if(!$db)
+            $create = $this->connect->prepare($request . $requestEnd);
+        else $create = $this->connectCinema->prepare($request . $requestEnd);
         if ($create->execute($tab)) {
             $return = $this->connect->prepare("SELECT LAST_INSERT_ID()");
             $return->execute();

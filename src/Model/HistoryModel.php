@@ -28,4 +28,9 @@ class HistoryModel extends Entity
     {
         return $this->ORM->find("history", ["id_membre" => $_SESSION["id"]], true);
     }
+
+    public function getORM(): ORM
+    {
+        return $this->ORM;
+    }
 }
