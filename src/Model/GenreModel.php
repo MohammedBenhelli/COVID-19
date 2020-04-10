@@ -33,4 +33,9 @@ class GenreModel extends Entity
     {
         return $this->ORM->readCinema("distrib");
     }
+
+    public function getFilms(): array
+    {
+        return $this->ORM->find("film", ["id_genre" => $_POST["genre"]]);
+    }
 }
