@@ -52,6 +52,7 @@ class UserController extends Core\Controller
     public function deleteAction(string $message = "", string $error = "")
     {
         $model = new UserModel(["id" => $_SESSION["id"]]);
+        var_dump($model);
         $model->ORM->delete("users", $model->id);
         session_destroy();
         $this->render("register", ["message" => $message, "error" => $error], true);

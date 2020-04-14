@@ -43,7 +43,7 @@ class ORM
     {
         $request = "SELECT * FROM $table WHERE id=?";
         $read = $this->connect->prepare($request);
-        if ($read->execute([$id])) return $read->fetchAll(PDO::FETCH_CLASS);
+        if ($read->execute([$id])) return $read->fetchAll(\PDO::FETCH_CLASS);
         else return ["null"];
     }
 
