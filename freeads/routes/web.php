@@ -27,6 +27,7 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@showHome')->name('home');
 Route::get('/test', 'HomeController@index')->name('test');
 Route::get('/modify', 'HomeController@showModify')->name('modify');
+Route::get("/modifyUser", "HomeController@modify")->name("modifyUser");
 Route::get("/createAds", "AdsController@create")->name("createAds");
 Route::post("/sendAds", "AdsController@send")->name("sendAds");
 Route::get("/myAds", "AdsController@list")->name("myAds");
