@@ -25,6 +25,11 @@ export default class Ads extends Component {
                         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
                             {"Price: " + x.price}
                         </span>
+                        <a href={"http://localhost:3000/messages/create/" + x.id_user}>
+                        <span className="inline-block cursor-pointer bg-teal-800 rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
+                            Contact
+                        </span>
+                        </a>
                     </div>
                 </div>
             ));

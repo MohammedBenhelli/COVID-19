@@ -9,7 +9,7 @@
     <title>Freeads</title>
 </head>
 <body>
-<div id="ads" data="{{ $ads }}"></div>
+<div id="ads" data="{{ $ads ?? json_encode([]) }}"></div>
 </body>
 <script src="{{ asset('js/app.js') }}"></script>
 </html>

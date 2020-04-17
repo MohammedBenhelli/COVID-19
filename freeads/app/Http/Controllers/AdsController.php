@@ -83,4 +83,10 @@ class AdsController extends Controller
         }
         else echo "Error not your ad";
     }
+
+    public function search()
+    {
+        $ads = AdsORM::where("title", "like", "%".$_GET["search"]."%")->get();
+        return view('acceuil', compact("ads"));
+    }
 }

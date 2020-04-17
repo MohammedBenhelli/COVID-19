@@ -65984,7 +65984,11 @@ var Ads = /*#__PURE__*/function (_Component) {
           className: "px-6 py-4"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
-        }, "Price: " + x.price)));
+        }, "Price: " + x.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: "http://localhost:3000/messages/create/" + x.id_user
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "inline-block cursor-pointer bg-teal-800 rounded-full px-3 py-1 text-sm font-semibold text-white mr-2"
+        }, "Contact"))));
       });else ads = JSON.parse(this.props.data).map(function (x, i) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: i,
@@ -66077,13 +66081,42 @@ var Header = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(Header);
 
-  function Header() {
+  function Header(props) {
+    var _this;
+
     _classCallCheck(this, Header);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      count: "0 New Messages"
+    };
+
+    _this.getMessageCount();
+
+    return _this;
   }
 
   _createClass(Header, [{
+    key: "getMessageCount",
+    value: function getMessageCount(e) {
+      var _this2 = this;
+
+      fetch("http://localhost:3000/messagesCount", {
+        method: "GET",
+        headers: {
+          "content-type": "application/json"
+        }
+      }).then(function (resp) {
+        return resp.json();
+      }).then(function (val) {
+        console.log(val);
+
+        _this2.setState({
+          count: val + " New Messages"
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -66124,8 +66157,25 @@ var Header = /*#__PURE__*/function (_Component) {
         className: "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
       }, "Post an ad"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "http://localhost:3000/myAds",
+        className: "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+      }, "My Ads"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "http://localhost:3000/messages",
         className: "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-      }, "My Ads")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, this.state.count)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "mb-4 w-full md:mb-0 md:w-1/4",
+        method: "GET",
+        action: "http://localhost:3000/searchAds"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "hidden",
+        htmlFor: "search-form"
+      }, "Search"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "text-teal-800 border-2 focus:border-teal-800 p-2 rounded-lg shadow-inner w-full",
+        placeholder: "Search",
+        name: "search",
+        type: "text"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "hidden"
+      }, "Submit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "http://localhost:3000/logout",
         className: "inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
       }, "Logout"))));

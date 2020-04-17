@@ -3,6 +3,27 @@ import ReactDOM from 'react-dom';
 
 export default class Header extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: "0 New Messages"
+        };
+        this.getMessageCount();
+    }
+
+    getMessageCount(e) {
+        fetch("http://localhost:3000/messagesCount", {
+            method: "GET",
+            headers: {
+                "content-type": "application/json"
+            }
+        }).then((resp) => resp.json())
+            .then(val => {
+                console.log(val);
+                this.setState({ count: val + " New Messages"});
+            });
+    };
+
     render() {
         return (
             <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
@@ -36,13 +57,24 @@ export default class Header extends Component {
                             Post an ad
                         </a>
                         <a href="http://localhost:3000/myAds"
-                           className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                           className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                             My Ads
                         </a>
+                        <a href="http://localhost:3000/messages"
+                           className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                           { this.state.count }
+                        </a>
                     </div>
+                    <form className="mb-4 w-full md:mb-0 md:w-1/4" method="GET" action="http://localhost:3000/searchAds">
+                        <label className="hidden" htmlFor="search-form">Search</label>
+                        <input className="text-teal-800 border-2 focus:border-teal-800 p-2 rounded-lg shadow-inner w-full"
+                            placeholder="Search" name="search" type="text"/>
+                            <button className="hidden">Submit</button>
+                    </form>
                     <div>
-                        <a href="http://localhost:3000/logout"
-                           className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Logout</a>
+                        <a href="http://localhost:3000/logout" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+                            Logout
+                        </a>
                     </div>
                 </div>
             </nav>

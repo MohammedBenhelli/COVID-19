@@ -23,7 +23,7 @@ class HomeController extends Controller
 
     public function showHome()
     {
-        $ads = json_encode(AdsORM::all());
+        $ads = json_encode(AdsORM::where("id_user", "!=", Auth::id())->get());
         return view('acceuil', compact("ads"));
     }
 
