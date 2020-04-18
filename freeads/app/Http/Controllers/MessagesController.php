@@ -201,6 +201,7 @@ class MessagesController extends Controller
      * Send the new message to Pusher in order to notify users.
      *
      * @param Message $message
+     * @param string $html
      * @return void
      */
     protected function oooPushIt(Message $message, $html = '')

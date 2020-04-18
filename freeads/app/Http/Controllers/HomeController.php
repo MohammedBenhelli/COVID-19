@@ -23,8 +23,12 @@ class HomeController extends Controller
 
     public function showHome()
     {
-        $ads = json_encode(AdsORM::where("id_user", "!=", Auth::id())->get());
-        return view('acceuil', compact("ads"));
+        if(User::find(Auth::id())->getAttributes()["email_verified_at"] === null)
+            return view('home');
+        else {
+            $ads = json_encode(AdsORM::where("id_user", "!=", Auth::id())->get());
+            return view('acceuil', compact("ads"));
+        }
     }
 
     public function showModify()

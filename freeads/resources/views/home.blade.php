@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You must verify your mail!
                 </div>
             </div>
         </div>
