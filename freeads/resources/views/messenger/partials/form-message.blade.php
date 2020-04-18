@@ -1,8 +1,8 @@
-<h2>Add a new message</h2>
+<h2 style="color: royalblue; margin-bottom: 15px; margin-top: 15px">Write a new message</h2>
 <form action="{{ route('messages.update', $thread->id) }}" method="post">
     {{ method_field('put') }}
     {{ csrf_field() }}
-        
+
     <!-- Message Form Input -->
     <div class="form-group">
         <textarea name="message" class="form-control">{{ old('message') }}</textarea>

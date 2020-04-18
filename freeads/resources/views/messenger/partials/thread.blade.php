@@ -3,7 +3,7 @@
 <div class="media alert {{ $class }}" id="thread_list_{{ $thread->id }}">
     <h4 class="media-heading">
         <a href="{{ route('messages.show', $thread->id) }}">{{ $thread->subject }}</a>
-        ({{ $thread->userUnreadMessagesCount(Auth::id()) }} unread)</h4>
+        ({{ $thread->userUnreadMessagesCount(Auth::id()) }} New messages)</h4>
     <p>
         {{ $thread->latestMessage->body }}
     </p>

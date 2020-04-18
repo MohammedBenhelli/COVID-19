@@ -58,7 +58,7 @@
             </a>
             <a href="http://localhost:3000/messages"
                class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-                Messages @include("messenger.unread-count")
+                @include("messenger.unread-count")
             </a>
         </div>
         <form className="mb-4 w-full md:mb-0 md:w-1/4" method="GET" action="http://localhost:3000/searchAds">
