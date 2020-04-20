@@ -1,0 +1,15 @@
+index:
+    path: /
+    controller: App\Controller\RegistrationController::register
+home:
+    path: /home
+    controller: App\Controller\QuizzController::index
+quizz_show:
+    path: /quizz/{id}
+    controller: App\Controller\QuizzController::showQuizz
+question_show:
+    path: /quizz/{id}/{id_question}
+    controller: App\Controller\QuizzController::showQuestion
+question_response:
+    path: /quizz/response/{id}/{id_question}/{response}
+    controller: App\Controller\QuizzController::response

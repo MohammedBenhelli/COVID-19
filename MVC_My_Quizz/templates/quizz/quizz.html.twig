@@ -1,0 +1,15 @@
+{% extends "quizz/header.html.twig" %}
+
+{% block title %}Quizz!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>{{ question.question }}</h2>
+        <hr>
+        {% for response in responses %}
+            <a class="text-success text-decoration-none" href="{{ "/quizz/response/#{question.idCategorie}/#{count}/#{response.reponseExpected + 1}" }}">
+                <h4>{{ response.reponse }}</h4>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
