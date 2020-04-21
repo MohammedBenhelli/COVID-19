@@ -30,7 +30,7 @@ class QuizzController extends AbstractController
 
     public function showQuizz(int $id): Response
     {
-        $_SESSION["id_quizz"] = [$id, 0];
+        $_SESSION["id_quizz"] = [$id, []];
         return $this->redirectToRoute("question_show", [
             "id" => $id,
             "id_question" => 0
@@ -46,17 +46,20 @@ class QuizzController extends AbstractController
             return $this->render("quizz/quizz.html.twig", [
                 "question" => $question,
                 "responses" => $responses,
-                "count" => ++$id_question
+                "count" => $_SESSION["id_quizz"][1],
+                "number" => ++$id_question
             ]);
         } else return $this->render("quizz/result.html.twig", [
-            "result" => $_SESSION["id_quizz"][1]
+            "result" => count(array_filter($_SESSION["id_quizz"][1], function ($value){
+                return $value === true;
+            }))
         ]);
     }
 
     public function response(int $id, int $id_question, int $response): Response
     {
-        if ($response === 2)
-            $_SESSION["id_quizz"][1]++;
+        if ($response === 2) array_push($_SESSION["id_quizz"][1], true);
+        else array_push($_SESSION["id_quizz"][1], false);
         return $this->redirectToRoute("question_show", [
             "id" => $id,
             "id_question" => $id_question
