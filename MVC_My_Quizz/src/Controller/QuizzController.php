@@ -18,13 +18,16 @@ class QuizzController extends AbstractController
     }
 
     /**
-     * @Route("/quizz", name="quizz")
+     * @Route("/home", name="home")
      */
     public function index(): Response
     {
+        if($this->getUser()) $logout = true;
+        else $logout = false;
         $categories = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
         return $this->render("quizz/index.html.twig", [
-            "categories" => $categories
+            "categories" => $categories,
+            "logout" => $logout
         ]);
     }
 
