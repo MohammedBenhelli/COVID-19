@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Entity\Question;
 use App\Entity\Reponse as QuizResponse;
+use App\Entity\Score;
 use Doctrine\DBAL\Schema\View;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,11 +53,21 @@ class QuizzController extends AbstractController
                 "count" => $_SESSION["id_quizz"][1],
                 "number" => ++$id_question
             ]);
-        } else return $this->render("quizz/result.html.twig", [
-            "result" => count(array_filter($_SESSION["id_quizz"][1], function ($value){
+        } else {
+            $result = count(array_filter($_SESSION["id_quizz"][1], function ($value) {
                 return $value === true;
-            }))
-        ]);
+            }));
+            $entityManager = $this->getDoctrine()->getManager();
+            $score = new Score();
+            $score->setCategorie($_SESSION["id_quizz"][0]);
+            $score->setScore($result);
+            $score->setUser($this->getUser()->getId());
+            $entityManager->persist($score);
+            $entityManager->flush();
+            return $this->render("quizz/result.html.twig", [
+                "result" => $result
+            ]);
+        }
     }
 
     public function response(int $id, int $id_question, int $response): Response
@@ -67,5 +78,11 @@ class QuizzController extends AbstractController
             "id" => $id,
             "id_question" => $id_question
         ]);
+    }
+
+    public function showProfile(): Response
+    {
+        dd($this->getDoctrine()->getRepository(Score::class)->findTotal($this->getUser()->getId()));
+        return $this->render("quizz/profile.html.twig");
     }
 }

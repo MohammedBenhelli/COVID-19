@@ -13,3 +13,6 @@ question_show:
 question_response:
     path: /quizz/response/{id}/{id_question}/{response}
     controller: App\Controller\QuizzController::response
+profile:
+    path: /profile
+    controller: App\Controller\QuizzController::showProfile

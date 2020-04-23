@@ -4,22 +4,29 @@
     <header>
         <nav class="navbar navbar-expand navbar-light bg-light">
             <a class="navbar-brand" href="/home">My_Quizz</a>
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/home">Quizz List <span class="sr-only">(current)</span></a>
-                    </li>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Quizz List <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Register</a>
+                </li>
+                {% if logout is defined and logout %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Register</a>
+                        <a class="nav-link" href="/profile">Your Profile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Your Profile</a>
-                    </li>
-                    {% if logout is defined and logout %}
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Log Out</a>
                     </li>
-                    {% endif %}
-                </ul>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
         </nav>
     </header>
 {% endblock %}
