@@ -16,3 +16,9 @@ question_response:
 profile:
     path: /profile
     controller: App\Controller\ScoreController::showProfile
+quizz_create:
+    path: /quizzCreate
+    controller: App\Controller\QuizzController::createQuizz
+quizz_send:
+    path: /quizzSend
+    controller: App\Controller\QuizzController::sendQuizz

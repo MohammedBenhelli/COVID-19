@@ -7,15 +7,18 @@ use App\Entity\Question;
 use App\Entity\Reponse as QuizResponse;
 use App\Entity\Score;
 use Doctrine\DBAL\Schema\View;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use \Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Yaml\Yaml;
 
 class QuizzController extends AbstractController
 {
     public function __construct()
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE)
+            session_start();
     }
 
     /**
@@ -86,5 +89,18 @@ class QuizzController extends AbstractController
             "id" => $id,
             "id_question" => $id_question
         ]);
+    }
+
+    public function createQuizz(): Response
+    {
+        return $this->render("quizz/create.html.twig", [
+            "logout" => $this->isLogged()
+        ]);
+    }
+
+    public function sendQuizz(Request $request): Response
+    {
+        $quizz = Yaml::parseFile($_FILES["yamlInput"]["tmp_name"]);
+        dd($quizz);
     }
 }

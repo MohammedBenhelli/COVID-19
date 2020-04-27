@@ -1,0 +1,15 @@
+{% extends "quizz/header.html.twig" %}
+
+{% block title %}Create a quizz!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form method="POST" action="/quizzSend" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="yamlInput">Import a .yaml file</label>
+                <input name="yamlInput" type="file" class="form-control-file" id="yamlInput">
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock %}
