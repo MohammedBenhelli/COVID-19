@@ -15,4 +15,4 @@ question_response:
     controller: App\Controller\QuizzController::response
 profile:
     path: /profile
-    controller: App\Controller\QuizzController::showProfile
+    controller: App\Controller\ScoreController::showProfile

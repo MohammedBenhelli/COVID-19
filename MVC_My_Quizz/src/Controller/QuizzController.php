@@ -23,13 +23,17 @@ class QuizzController extends AbstractController
      */
     public function index(): Response
     {
-        if($this->getUser()) $logout = true;
-        else $logout = false;
         $categories = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
         return $this->render("quizz/index.html.twig", [
             "categories" => $categories,
-            "logout" => $logout
+            "logout" => $this->isLogged()
         ]);
+    }
+
+    private function isLogged(): bool
+    {
+        if ($this->getUser()) return true;
+        else return false;
     }
 
     public function showQuizz(int $id): Response
@@ -51,21 +55,25 @@ class QuizzController extends AbstractController
                 "question" => $question,
                 "responses" => $responses,
                 "count" => $_SESSION["id_quizz"][1],
-                "number" => ++$id_question
+                "number" => ++$id_question,
+                "logout" => $this->isLogged()
             ]);
         } else {
             $result = count(array_filter($_SESSION["id_quizz"][1], function ($value) {
                 return $value === true;
             }));
             $entityManager = $this->getDoctrine()->getManager();
-            $score = new Score();
+            if($this->getDoctrine()->getRepository(Score::class)->findBy(['user' => $this->getUser()->getId(), 'categorie' => $_SESSION["id_quizz"][0]]))
+                $score = $this->getDoctrine()->getRepository(Score::class)->findBy(['user' => $this->getUser()->getId(), 'categorie' => $_SESSION["id_quizz"][0]])[0];
+            else $score = new Score();
             $score->setCategorie($_SESSION["id_quizz"][0]);
             $score->setScore($result);
             $score->setUser($this->getUser()->getId());
             $entityManager->persist($score);
             $entityManager->flush();
             return $this->render("quizz/result.html.twig", [
-                "result" => $result
+                "result" => $result,
+                "logout" => $this->isLogged()
             ]);
         }
     }
@@ -78,11 +86,5 @@ class QuizzController extends AbstractController
             "id" => $id,
             "id_question" => $id_question
         ]);
-    }
-
-    public function showProfile(): Response
-    {
-        dd($this->getDoctrine()->getRepository(Score::class)->findTotal($this->getUser()->getId()));
-        return $this->render("quizz/profile.html.twig");
     }
 }

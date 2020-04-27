@@ -21,8 +21,13 @@ class ScoreRepository extends ServiceEntityRepository
 
     public function findTotal(int $id): array
     {
-        return $this->createQueryBuilder("s")->where("s.user = :user")
-            ->setParameter("user", $id)->leftJoin("s.categorie", "c")
+        return $this->createQueryBuilder("s")
+            ->select('c', 's')
+            ->leftJoin("App\Entity\Categorie", "c",
+                \Doctrine\ORM\Query\Expr\Join::WITH,
+            "s.categorie = c.id")
+            ->where("s.user = :user")
+            ->setParameter("user", $id)
             ->getQuery()->execute();
     }
 
