@@ -66,7 +66,7 @@ class QuizzController extends AbstractController
                 return $value === true;
             }));
             $entityManager = $this->getDoctrine()->getManager();
-            if($this->getDoctrine()->getRepository(Score::class)->findBy(['user' => $this->getUser()->getId(), 'categorie' => $_SESSION["id_quizz"][0]]))
+            if ($this->getDoctrine()->getRepository(Score::class)->findBy(['user' => $this->getUser()->getId(), 'categorie' => $_SESSION["id_quizz"][0]]))
                 $score = $this->getDoctrine()->getRepository(Score::class)->findBy(['user' => $this->getUser()->getId(), 'categorie' => $_SESSION["id_quizz"][0]])[0];
             else $score = new Score();
             $score->setCategorie($_SESSION["id_quizz"][0]);
@@ -102,7 +102,33 @@ class QuizzController extends AbstractController
 
     public function sendQuizz(Request $request): Response
     {
-        $quizz = Yaml::parseFile($_FILES["yamlInput"]["tmp_name"]);
-        dd($quizz);
+        if(isset($_FILES["yamlInput"]["tmp_name"]))
+            $quizz = Yaml::parseFile($_FILES["yamlInput"]["tmp_name"])["quizz"];
+        else $quizz = Yaml::parse($_POST["quizzInput"])["quizz"];
+        if (!$this->getDoctrine()->getRepository(Categorie::class)->findBy(["name" => $quizz["title"]]) && count($quizz["questions"]) === 10) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $categorie = new Categorie();
+            $categorie->setName($quizz["title"]);
+            $entityManager->persist($categorie);
+            $entityManager->flush();
+            foreach ($quizz["questions"] as $value) {
+                $question = new Question();
+                $question->setIdCategorie($categorie->getId())
+                    ->setQuestion($value["name"]);
+                $entityManager->persist($question);
+                $entityManager->flush();
+                foreach ($value as $key => $response) {
+                    if ($key !== "name") {
+                        $r = new QuizResponse();
+                        $r->setReponse($response["content"])
+                            ->setIdQuestion($question->getId())
+                            ->setReponseExpected($response["answer"]);
+                        $entityManager->persist($r);
+                        $entityManager->flush();
+                    }
+                }
+            }
+            return $this->redirectToRoute("home");
+        } else dd("deja existant");
     }
 }
