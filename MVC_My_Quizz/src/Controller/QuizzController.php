@@ -93,7 +93,9 @@ class QuizzController extends AbstractController
 
     public function createQuizz(): Response
     {
+        $textarea = file_get_contents("textarea.yaml");
         return $this->render("quizz/create.html.twig", [
+            "textarea" => $textarea,
             "logout" => $this->isLogged()
         ]);
     }
