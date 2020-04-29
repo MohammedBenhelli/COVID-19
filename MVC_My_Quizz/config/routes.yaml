@@ -22,3 +22,6 @@ quizz_create:
 quizz_send:
     path: /quizzSend
     controller: App\Controller\QuizzController::sendQuizz
+new_mail:
+    path: /newMail
+    controller: App\Controller\SecurityController::newMail
