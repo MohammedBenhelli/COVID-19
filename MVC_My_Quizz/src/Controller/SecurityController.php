@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
@@ -46,5 +48,18 @@ class SecurityController extends AbstractController
                 'text/html'
             );
         dd($mailer->send($message), $_POST);
+    }
+
+    public function newPass( UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        if($_POST["inputPass"] === $_POST["inputPassConf"] && strlen($_POST["inputPass"]) > 6) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $user = $this->getDoctrine()->getRepository(User::class)->findBy(["username" => $this->getUser()->getUsername()])[0];
+            $user->setPassword($passwordEncoder->encodePassword($this->getUser(), $_POST["inputPass"]));
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->redirectToRoute("app_logout");
+        }
+        else return $this->redirectToRoute("profile");
     }
 }

@@ -25,3 +25,9 @@ quizz_send:
 new_mail:
     path: /newMail
     controller: App\Controller\SecurityController::newMail
+new_pass:
+    path: /newPass
+    controller: App\Controller\SecurityController::newPass
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::index
