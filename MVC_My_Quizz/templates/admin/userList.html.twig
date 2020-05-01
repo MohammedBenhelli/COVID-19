@@ -1,0 +1,17 @@
+{% extends "admin/header.html.twig" %}
+
+{% block title %}Admin panel{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>User List</h1>
+        {% for user in users %}
+            <div>
+                <a href="/admin/profile/{{ user.id }}">
+                    <h1 class="text-success text-decoration-none">{{ user.username }}</h1>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

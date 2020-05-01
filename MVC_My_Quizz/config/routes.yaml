@@ -31,3 +31,12 @@ new_pass:
 admin:
     path: /admin
     controller: App\Controller\AdminController::index
+user_list:
+    path: /admin/userList
+    controller: App\Controller\AdminController::userList
+admin_profile:
+    path: /admin/profile/{id}
+    controller: App\Controller\AdminController::showProfile
+admin_quizz_info:
+    path: /admin/quizzInfo
+    controller: App\Controller\AdminController::quizzInfo
