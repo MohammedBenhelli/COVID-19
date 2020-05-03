@@ -29,6 +29,11 @@
                         <a class="nav-link" href="/">Register</a>
                     </li>
                 {% endif %}
+                {% if role is defined and role == "ROLE_ADMIN" %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
     </header>

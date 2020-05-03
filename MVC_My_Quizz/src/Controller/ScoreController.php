@@ -39,7 +39,8 @@ class ScoreController extends AbstractController
             $scoreFilter[$i / 2] = [$score[$i], $score[$i + 1]];
         return $this->render("quizz/profile.html.twig", [
             "score" => $scoreFilter,
-            "logout" => $this->isLogged()
+            "logout" => $this->isLogged(),
+            "role" => $this->getUser()->getRoles()[0]
         ]);
     }
 }

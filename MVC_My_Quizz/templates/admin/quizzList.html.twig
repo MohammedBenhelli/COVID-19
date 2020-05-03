@@ -1,0 +1,20 @@
+{% extends "admin/header.html.twig" %}
+
+{% block title %}Quizz List{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Welcome to My_Quizz Choose a categorie!</h1>
+        <hr>
+        {% for categorie in categories %}
+            <a class="text-success text-decoration-none" href="{{ "/admin/quizz/#{categorie.id}" }}">
+                {{ categorie.name }}
+            </a>
+            <a class="bg-danger text-white" href="/admin/deleteQuizz/{{ categorie.id }}">
+                X
+            </a>
+            <br>
+        {% endfor %}
+    </div>
+{% endblock %}

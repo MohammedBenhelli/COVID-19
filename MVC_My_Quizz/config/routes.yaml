@@ -34,9 +34,30 @@ admin:
 user_list:
     path: /admin/userList
     controller: App\Controller\AdminController::userList
+admin_list:
+    path: /admin/adminList
+    controller: App\Controller\AdminController::adminList
 admin_profile:
     path: /admin/profile/{id}
     controller: App\Controller\AdminController::showProfile
 admin_quizz_info:
     path: /admin/quizzInfo
     controller: App\Controller\AdminController::quizzInfo
+admin_quizz:
+    path: /admin/quizz/{id}
+    controller: App\Controller\AdminController::showQuizz
+admin_quizz_list:
+    path: /admin/quizzList
+    controller: App\Controller\AdminController::quizzList
+admin_delete_quizz:
+    path: /admin/deleteQuizz/{id}
+    controller: App\Controller\AdminController::deleteQuizz
+create_admin:
+    path: /admin/createAdmin
+    controller: App\Controller\AdminController::createAdmin
+delete_user:
+    path: /admin/deleteUser/{id}
+    controller: App\Controller\AdminController::deleteUser
+admin_question:
+    path: /admin/question/{id}
+    controller: App\Controller\AdminController::showQuestion

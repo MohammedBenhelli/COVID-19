@@ -1,0 +1,17 @@
+{% extends "admin/header.html.twig" %}
+
+{% block title %}Question{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>{{ question.question }}</h2>
+        <hr>
+        {% for response in responses %}
+            {% if response.reponseExpected %}
+                <h4 class="text-success">{{ response.reponse }}</h4>
+            {% else %}
+                <h4>{{ response.reponse }}</h4>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

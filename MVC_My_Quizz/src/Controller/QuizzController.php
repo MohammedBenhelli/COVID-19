@@ -17,7 +17,7 @@ class QuizzController extends AbstractController
 {
     public function __construct()
     {
-        if (session_status() == PHP_SESSION_NONE)
+        if (session_status() === PHP_SESSION_NONE)
             session_start();
     }
 
@@ -29,7 +29,8 @@ class QuizzController extends AbstractController
         $categories = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
         return $this->render("quizz/index.html.twig", [
             "categories" => $categories,
-            "logout" => $this->isLogged()
+            "logout" => $this->isLogged(),
+            "role" => $this->getUser()->getRoles()[0]
         ]);
     }
 
@@ -59,7 +60,8 @@ class QuizzController extends AbstractController
                 "responses" => $responses,
                 "count" => $_SESSION["id_quizz"][1],
                 "number" => ++$id_question,
-                "logout" => $this->isLogged()
+                "logout" => $this->isLogged(),
+                "role" => $this->getUser()->getRoles()[0]
             ]);
         } else {
             $result = count(array_filter($_SESSION["id_quizz"][1], function ($value) {
@@ -76,7 +78,8 @@ class QuizzController extends AbstractController
             $entityManager->flush();
             return $this->render("quizz/result.html.twig", [
                 "result" => $result,
-                "logout" => $this->isLogged()
+                "logout" => $this->isLogged(),
+                "role" => $this->getUser()->getRoles()[0]
             ]);
         }
     }
@@ -96,7 +99,8 @@ class QuizzController extends AbstractController
         $textarea = file_get_contents("textarea.yaml");
         return $this->render("quizz/create.html.twig", [
             "textarea" => $textarea,
-            "logout" => $this->isLogged()
+            "logout" => $this->isLogged(),
+            "role" => $this->getUser()->getRoles()[0]
         ]);
     }
 

@@ -34,10 +34,11 @@ class ScoreRepository extends ServiceEntityRepository
     public function findInfo(): array
     {
         return $this->createQueryBuilder("s")
-            ->select('COUNT(s.id)', 'c')
+            ->select('COUNT(s.categorie), SUM(s.score)/COUNT(s.score)', 'c')
             ->leftJoin("App\Entity\Categorie", "c",
                 \Doctrine\ORM\Query\Expr\Join::WITH,
                 "s.categorie = c.id")
+            ->groupBy("s.categorie")
             ->getQuery()->execute();
 
     }

@@ -1,0 +1,19 @@
+{% extends "admin/header.html.twig" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2>Questions list:</h2>
+                {% for question in questions %}
+                    <p><a href="/admin/question/{{ question.id }}">{{ question.question }}</a></p>
+                {% endfor %}
+            </div>
+            <div class="col-6">
+                <h2>Played: {{ played }} times</h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
