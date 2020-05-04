@@ -26,11 +26,14 @@ class QuizzController extends AbstractController
      */
     public function index(): Response
     {
+        if($this->getUser() !== null)
+            $role = $this->getUser()->getRoles()[0];
+        else $role = "";
         $categories = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
         return $this->render("quizz/index.html.twig", [
             "categories" => $categories,
             "logout" => $this->isLogged(),
-            "role" => $this->getUser()->getRoles()[0]
+            "role" => $role
         ]);
     }
 
@@ -51,6 +54,9 @@ class QuizzController extends AbstractController
 
     public function showQuestion(int $id, int $id_question): Response
     {
+        if($this->getUser() !== null)
+            $role = $this->getUser()->getRoles()[0];
+        else $role = "";
         if (isset($this->getDoctrine()->getRepository(Question::class)->findBy(["idCategorie" => $id])[$id_question])) {
             $question = $this->getDoctrine()->getRepository(Question::class)->findBy(["idCategorie" => $id])[$id_question];
             $responses = $this->getDoctrine()->getRepository(QuizResponse::class)->findBy(["idQuestion" => $question->getId()]);
@@ -61,7 +67,7 @@ class QuizzController extends AbstractController
                 "count" => $_SESSION["id_quizz"][1],
                 "number" => ++$id_question,
                 "logout" => $this->isLogged(),
-                "role" => $this->getUser()->getRoles()[0]
+                "role" => $role
             ]);
         } else {
             $result = count(array_filter($_SESSION["id_quizz"][1], function ($value) {
